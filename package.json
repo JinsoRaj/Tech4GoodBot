@@ -1,15 +1,16 @@
 {
-  "name": "t4gbot",
+  "name": "tech4goodbot",
   "version": "1.0.0",
   "description": "Tech4Good Telegram Bot",
   "type": "module",
-  "main": "index.js",
+  "main": "bot.js",
   "scripts": {
+    "start": "node bot.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JinsoRaj/T4Gbot.git"
+    "url": "git+https://github.com/JinsoRaj/Tech4GoodBot.git"
   },
   "keywords": [
     "T4GLabs",
@@ -18,14 +19,15 @@
   "author": "JinsoRaj",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/JinsoRaj/T4Gbot/issues"
+    "url": "https://github.com/JinsoRaj/Tech4GoodBot/issues"
   },
-  "homepage": "https://github.com/JinsoRaj/T4Gbot#readme",
+  "homepage": "https://github.com/JinsoRaj/Tech4GoodBot#readme",
   "dependencies": {
     "@extractus/feed-extractor": "^6.1.7",
     "dotenv": "^16.0.3",
     "grammy": "^1.12.0",
     "mongodb": "^4.13.0",
-    "node-cron": "^3.0.2"
+    "node-cron": "^3.0.2",
+    "puppeteer": "^19.4.1"
   }
 }
