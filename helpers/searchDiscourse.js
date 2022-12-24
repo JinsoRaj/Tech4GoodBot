@@ -1,6 +1,7 @@
 import { read } from '@extractus/feed-extractor'
 import * as dotenv from "dotenv"
 dotenv.config()
+//TODO PROPER
 
 const discourseUrl = process.env.DISCOURSE_RSS_URL
 

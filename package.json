@@ -24,6 +24,7 @@
   "homepage": "https://github.com/JinsoRaj/Tech4GoodBot#readme",
   "dependencies": {
     "@extractus/feed-extractor": "^6.1.7",
+    "cheerio": "^1.0.0-rc.12",
     "dotenv": "^16.0.3",
     "grammy": "^1.12.0",
     "mongodb": "^4.13.0",

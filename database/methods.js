@@ -1,4 +1,4 @@
-import { rss } from "./db.js";
+import { rss, chats } from "./db.js";
 
 // Get stored guid from rss db
 export async function getDbGUID(){
@@ -23,3 +23,7 @@ export async function updateRss(fullEntry){
         } })
 }
 
+export async function getChats(){
+    const allChatsArray = await chats.find({ _id: { $ne: null } }).toArray();
+    return allChatsArray;
+}

@@ -49,7 +49,7 @@ export const users = db.collection("users");
 export const chats = db.collection("chats")
 // /* chats: {
 //     _id:,
-//     title:,
+//     name:,
 //     username:
 // }
 // */
