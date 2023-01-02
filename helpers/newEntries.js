@@ -30,7 +30,7 @@ export async function checkNewDiscourse(){
                         inline_keyboard: [
                             [
                                 {
-                                    text: `Read post`,
+                                    text: `Read or Reply post`,
                                     url: rssFeed.entries[i].link
                                 }
                             ]

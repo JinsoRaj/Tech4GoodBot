@@ -1,8 +1,8 @@
-import { read } from '@extractus/feed-extractor'
-import * as dotenv from "dotenv"
-dotenv.config()
-//TODO PROPER
-
+//import { read } from '@extractus/feed-extractor'
+//import * as dotenv from "dotenv"
+//dotenv.config()
+//TODO PROPER urlencode json req
+/*
 const discourseUrl = process.env.DISCOURSE_RSS_URL
 
 // Todo: puppeteer?, /search?q=word%20in%3Atitle
@@ -30,5 +30,5 @@ export async function getDiscoursePosts(){
     }catch(error){
       console.log(`Error in fetching Discourse url: ${error}`);
     }
-}
+}*/
 //await getDiscoursePosts()

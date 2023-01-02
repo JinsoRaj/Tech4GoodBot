@@ -6,7 +6,7 @@
 */
 import { Bot, InlineKeyboard, GrammyError, HttpError } from"grammy";
 import { checkNewDiscourse } from "./helpers/newEntries.js";
-import { getDiscoursePosts } from "./helpers/searchDiscourse.js"
+// import { getDiscoursePosts } from "./helpers/searchDiscourse.js"
 import cron from "node-cron";
 import * as dotenv from 'dotenv'
 dotenv.config()
@@ -30,7 +30,8 @@ cron.schedule('*/10 * * * *', async () => {
 
 // Inline Mode
 
-// Listen for users typing “@Tech4GoodBot ”
+// Listen for users typing “@Tech4GoodBot ” - Disabled - 2/11/23 meet.
+/*
 bot.on('inline_query', async(ctx) => {
   const query = ctx.inlineQuery.query;
   const res = await getDiscoursePosts()
@@ -58,6 +59,7 @@ bot.on('inline_query', async(ctx) => {
     { cache_time: 30 * 24 * 3600 }, // one month in seconds
   );
 });
+*/
 
 bot.catch((err) => {
   const ctx = err.ctx;
