@@ -22,7 +22,7 @@ export async function checkNewDiscourse(){
         // Loop all posts above that Index.
         for(let i=dbpostIndex-1; i>=0; i--){
             for(const chat of chatsArray){
-                bot.api.sendMessage(chat._id,`<u><b>New post from Discourse</b></u>\n\n<b>${rssFeed.entries[i].title}</b>\n<i>${rssFeed.entries[i].description}..</i>\n<a href="${rssFeed.entries[i].link}"><i>Read More...</i></a>`,
+                bot.api.sendMessage(chat._id,`<u><b>New Post! Tech4Good Forum</b></u>\n\n<b>${rssFeed.entries[i].title}</b>\n\n<i>${rssFeed.entries[i].description}..</i>\n<a href="${rssFeed.entries[i].link}"><i>Read More...</i></a>`,
                 {
                     parse_mode: "HTML",
                     disable_web_page_preview: true,
