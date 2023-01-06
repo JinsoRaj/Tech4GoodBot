@@ -6,7 +6,7 @@
 */
 import { Bot, InlineKeyboard, GrammyError, HttpError } from"grammy";
 import { checkNewDiscourse } from "./helpers/newEntries.js";
-// import { getDiscoursePosts } from "./helpers/searchDiscourse.js"
+ import { getPosts } from "./helpers/searchDiscourse.js"
 import { addChat, removeChat } from "./database/methods.js";
 import cron from "node-cron";
 import * as dotenv from 'dotenv'
@@ -15,10 +15,15 @@ export const bot = new Bot(process.env.BOT_TOKEN);
 
 // Handle the /start command.
 bot.command("start", async (ctx) => {
-  ctx.reply("Hi..\nI will update you with latest post from T4GLabs\nYou can also search the posts via inLine.",
+  ctx.reply("😄 Hi..\nYou are now subscribed to <a href='https://t4glabs.discourse.group'>Tech4Good Forum</a>. I will update you with latest Forum posts.\nYou can also send me queries to search..",
   {
     parse_mode: "HTML",
-    reply_to_message_id: ctx.message.message_id
+    disable_web_page_preview: true,
+    reply_to_message_id: ctx.message.message_id,
+    reply_markup: new InlineKeyboard().url(
+      "🌐 Open Forum",
+      `https://t4glabs.discourse.group`,
+      )
   });
 
   //add new users to DB
@@ -38,38 +43,64 @@ cron.schedule('*/10 * * * *', async () => {
 //await checkNewWebsite();
 //await checkNewLinkedin();
 
-// Inline Mode
+bot.chatType("private").on("message:text", async (ctx)=>{
+  if(!ctx.message.via_bot){
+    const query = ctx.message.text;
+    const res = await getPosts(query);
+    if(res.topics){
+      await bot.api.sendMessage(ctx.message.chat.id, `🔍 Found <b>${res.topics.length}</b> results.\n<b>Click</b> the below button to show results..`,
+      {
+      parse_mode: "HTML",
+      reply_to_message_id: ctx.message.message_id,
+      reply_markup: new InlineKeyboard().switchInlineCurrent(
+        "Show Results 🔍",
+        `${query}`,
+        )
+      })
+    }else{
+      await bot.api.sendMessage(ctx.message.chat.id, `🥺 No results. Try another query`,
+      {
+      parse_mode: "HTML",
+      reply_to_message_id: ctx.message.message_id
+      })
+    }
+  }
+})
 
-// Listen for users typing “@Tech4GoodBot ” - Disabled - 2/11/23 meet.
-/*
+// Inline Mode
+// Listen for users typing “@Tech4GoodBot ”
+
 bot.on('inline_query', async(ctx) => {
   const query = ctx.inlineQuery.query;
-  const res = await getDiscoursePosts()
-  const resarr = res.filter(({ ["title"]: title }) => title && title.includes(query));
-  //console.log(resarr);
-  let data = resarr.map((item, index) => {
-    return {
-      type: "article",
-      id: String(index),
-      title: item.title,
-      input_message_content: {
-        message_text: `<b>${item.title}</b>\n<i>${item.description}</i>`,
-        parse_mode: "HTML",
-      },
-      reply_markup: new InlineKeyboard().url(
-        "Read Post",
-        item.link,
-      ),
-      url: item.link,
-      description: item.description,
+  if(query.length > 2){
+    const res = await getPosts(query)
+    if(res.topics){
+      let data = res.topics.map((item, index) => {
+        return {
+          type: "article",
+          id: String(index),
+          title: item.title,
+          input_message_content: {
+            message_text: `<b>${item.title}</b>\n\n<i>${res.posts[index].blurb}</i>`,
+            parse_mode: "HTML",
+            disable_web_page_preview: true
+          },
+          reply_markup: new InlineKeyboard().url(
+            "Read Post",
+            `https://t4glabs.discourse.group/t/${item.slug}/${item.id}`,
+          ),
+          url: `https://t4glabs.discourse.group/t/${item.slug}/${item.id}`,
+          description: res.posts[index].blurb,
+        }
+      })
+      await ctx.answerInlineQuery(
+        data,
+        { cache_time: 3600 }, // 1m seconds
+      );
     }
-  })
-  await ctx.answerInlineQuery(
-    data,
-    { cache_time: 30 * 24 * 3600 }, // one month in seconds
-  );
+  }
 });
-*/
+
 
 // end DB
 bot.on("my_chat_member", async ctx =>{

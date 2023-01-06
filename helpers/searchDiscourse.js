@@ -1,34 +1,19 @@
-//import { read } from '@extractus/feed-extractor'
-//import * as dotenv from "dotenv"
-//dotenv.config()
-//TODO PROPER urlencode json req
-/*
-const discourseUrl = process.env.DISCOURSE_RSS_URL
 
-// Todo: puppeteer?, /search?q=word%20in%3Atitle
-export async function getDiscoursePosts(){
-   try{
-      const result = await read(discourseUrl,{
-        getExtraFeedFields: (feedData) => {
-          return {
-            lastBuildDate: feedData.lastBuildDate || ''
-          }
-        },
-        getExtraEntryFields: (feedEntry) => {
-            const {
-              pubDate,
-              guid
-            } = feedEntry
-            return {
-              pubDate: pubDate,
-              guid: Number(guid["#text"].split('-')[2])
-            }
-          }
-        })
-      return result.entries;
-  
-    }catch(error){
-      console.log(`Error in fetching Discourse url: ${error}`);
-    }
-}*/
-//await getDiscoursePosts()
+import axios from 'axios';
+
+const baseUrl = `https://t4glabs.discourse.group/search.json`;
+
+
+export async function getPosts(inlineQuery){
+  const query = inlineQuery;
+  const options = {
+    q: `${query} in:title`,
+    page: 1
+  }
+  const res = await axios.get(baseUrl,{
+    headers: {'Accept': 'application/json'},
+    params: options
+  })
+   //console.log(res.data);
+   return res.data;
+}
