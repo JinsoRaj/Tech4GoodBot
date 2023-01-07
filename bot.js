@@ -32,6 +32,26 @@ bot.command("start", async (ctx) => {
   }
 });
 
+bot.command("search", async(ctx) =>{
+  if(ctx.message.chat.type === 'private'){
+    await ctx.reply(`Yeah! Please send me the keyword to Search 🔍`,
+    {
+      parse_mode: "HTML",
+      reply_to_message_id: ctx.message.message_id,
+    })
+  }else{
+    await ctx.reply(`You can search only in our Private chat.`,
+    {
+      parse_mode: "HTML",
+      reply_to_message_id: ctx.message.message_id,
+      reply_markup: new InlineKeyboard().url(
+        "Chat Private",
+        `https://t.me/${bot.botInfo.username}`,
+        )
+    })
+  }
+})
+
 // Check for New Discourse group RSS feeds every 10 mints.
 cron.schedule('*/10 * * * *', async () => {
   console.log('running a task every 10 minutes');
