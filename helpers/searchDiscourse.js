@@ -7,7 +7,7 @@ const baseUrl = `https://t4glabs.discourse.group/search.json`;
 export async function getPosts(inlineQuery){
   const query = inlineQuery;
   const options = {
-    q: `${query} in:title`
+    q: `${query}`
   }
   const res = await axios.get(baseUrl,{
     headers: {'Accept': 'application/json'},
