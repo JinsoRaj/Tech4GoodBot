@@ -24,6 +24,8 @@ bot.command("start", async (ctx) => {
       "🌐 Open Forum",
       `https://t4glabs.discourse.group`,
       )
+      .url("Channel 📢", `https://t.me/t4glabs`).row()
+      .url("Add me to group 👥", `t.me/${bot.botInfo.username}?startgroup&admin=manage_chat`)
   });
 
   //add new users to DB
